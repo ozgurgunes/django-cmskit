@@ -1,0 +1,7 @@
+{{ object.title }}
+{{ object.body }}
+{{ object.url }}
+{{ object.cooking }}
+{{ object.storage }}
+{{ object.tricks }}
+{{ object.notes }}

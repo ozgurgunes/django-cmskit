@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n get_placeholder_tag linebreaksli thumbnail %}
+{% block content %}
+
+<form action="" method="post" accept-charset="utf-8">
+	{% csrf_token %}
+	{{ form }}
+
+	<p><input type="submit" value="Continue &rarr;"></p>
+</form>
+{% endblock %}

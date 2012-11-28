@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n cms_tags menu_tags placeholder_tags get_placeholder_tag %}
+{% block content %}
+{% get_placeholder article.top as top %}
+{% get_placeholder article.bottom as bottom %}
+{% get_placeholder article.meta as meta %}
+{% get_placeholder article.media as media %}
+
+{% if top %}
+    <section id="top">
+        {{ top }}
+    </section>
+{% endif %}
+
+<div class="row">
+    <article id="main" class="span8">
+        <h1 class="page-header">{{ article.title }}</h1>
+        {% if meta %}
+        <section id="meta">
+            {{ meta }}
+        </section>
+        {% endif %}
+        {{ article.body|safe|linebreaks }}
+        {% if media %}
+        <section id="media">
+            {{ media }}
+        </section>
+        {% endif %}
+    </article>
+    <aside id="side" class="span4">
+        {% placeholder article.aside or %}
+        {% with article.index.article_set.all|slice:":10" as articles and article.index.page as page %}
+        {% include "articles/_latest.html" %}
+        {% endwith %}
+        {% endplaceholder %}
+    </aside>    
+</div>
+
+{% if bottom %}
+    <section id="bottom">
+        {{ bottom }}
+    </section>
+{% endif %}
+
+{% endblock %}

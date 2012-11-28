@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<a name="content"></a>
+  <div id="main">
+
+    <form action="{% url subscribe_detail %}" method="post" accept-charset="utf-8" class="form form-inline">
+        {% csrf_token %}
+        <h1 class="page-header">{% trans "Subscribe" %}</h1>
+      <fieldset>
+        
+        {% if form.email.errors %}{{ form.email.errors }}{% endif %}
+        {{ form.email }}
+        {{ form.subscribed }}
+        <input type="submit" value="{% trans "Subscribe" %}" class="btn" />
+      </fieldset>
+    </form>
+</div>  
+{% endblock %}

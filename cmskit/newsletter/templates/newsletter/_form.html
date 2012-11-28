@@ -1,0 +1,13 @@
+{% load i18n %}
+<form action="{% url subscribe_detail %}" method="post" accept-charset="utf-8" class="form pull-right input-prepend input-append">
+    {% csrf_token %}    
+    {% if form.email.errors %}
+    {% for error in form.email.errors %}
+        {{ error }}.
+    {% endfor %}
+    {{ form.email.errors }}
+    {% else %}{% trans "Newsletter subscription" %}{% endif %}
+    {{ form.email }}
+    {{ form.subscribed }}
+    <input type="submit" value="{% trans "Subscribe" %}" class="btn" /></p>
+</form>

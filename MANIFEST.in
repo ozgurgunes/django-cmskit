@@ -1,0 +1,4 @@
+include AUTHORS
+include README
+include LICENCE
+recursive-include cmskit *

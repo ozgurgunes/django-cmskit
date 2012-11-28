@@ -1,0 +1,17 @@
+{% load i18n cms_tags sekizai_tags pagination_tags %}
+{% addtoblock "css" %}
+<link rel="canonical" href="{{ request.current_page.get_absolute_url }}" />
+{% endaddtoblock %}
+<h1 class="page-header">{% trans "Articles" %}</h1>
+{% autopaginate articles 10 %}
+{% if articles %}
+{% for article in articles %}
+<article>
+    <h2><a href="{{ page.get_absolute_url }}{{ article.slug }}/{{ article.pk }}">{{ article.title }}</a></h2>
+    <p>{{ article.excerpt|linebreaks }}</p>
+</article>
+{% endfor %}    
+{% paginate %}
+{% else %}
+<p class="alert">{% trans "There aren't any articles" %}</p>
+{% endif %}

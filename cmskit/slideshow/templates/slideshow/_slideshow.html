@@ -1,0 +1,28 @@
+{% load i18n thumbnail %}
+
+<section id="slideshow" class="carousel slide well">
+    <div class='carousel-inner'>
+
+{% for object in slides %}
+<div class="item">
+    <h3>{{ object.title|title }}</h3>
+    {% if object.picture %}
+    	{% if link %}<a href="{{ link }}">{% endif %}
+    		<img src="{% thumbnail object.picture 940x300 crop %}" width="940" height="300" alt="{{ object.title }}"/>
+    	{% if link %}</a>{% endif %}
+    {% endif %}
+    {% if object.description %}
+    <p>{{ object.description }}</p>
+    {% endif %}
+    {% if link %}<a href="{{ link }}">{% trans "more" %} &#187;</a>{% endif %}
+</div>
+{% endfor %}
+
+    </div>
+    <a class="carousel-control left" href="#slideshow" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#slideshow" data-slide="next">&rsaquo;</a>
+</section>
+<script type="text/javascript" charset="utf-8">
+    $('#slideshow div.item').first().addClass('active');
+    $('#slideshow').carousel()
+</script>

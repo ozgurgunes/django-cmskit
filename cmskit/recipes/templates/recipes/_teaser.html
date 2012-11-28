@@ -1,0 +1,2 @@
+<h4><a href="{{ recipe.get_absolute_url }}">{{ recipe.title }}</a></h4>
+<a href="{{ recipe.get_absolute_url }}" class="thumbnail"><img src="{% thumbnail recipe.picture 300x150 crop %}" width="300" height="150" alt="{{ recipe.title }}"></a>

@@ -1,0 +1,19 @@
+{% load i18n %}
+<div class="span4">
+<h3>{% trans "Tarif ara" %}</h3>
+<form action="{% url recipes_search %}" method="get" accept-charset="utf-8">
+    <div>
+    <select name="some_name" id="some_name" onchange="" size="1">
+        <option value="option1">option1</option>
+        <option value="option2">option2</option>
+        
+    </select>
+    </div>
+    <div>
+    <input type="text" name="s" value="" id="id_s">
+    </div>
+    
+    <label><input type="checkbox" name="some_name" value="" id="some_name">{% trans "Yalnızca diyet tarifler" %}</label>
+    <input type="submit" value="{% trans "Ara" %}" class="btn" />
+</form>
+</div>

@@ -1,0 +1,3 @@
+{% for ance in ancestors reversed %}
+{% if not forloop.last %}{{ ance.get_menu_title }} - {% else %}django-cmskit{% endif %}
+{% endfor %}

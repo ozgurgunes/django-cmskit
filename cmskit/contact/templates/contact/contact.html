@@ -1,0 +1,92 @@
+{% load i18n %}
+
+{% if form %}
+	<form action="." method="post" class="form">
+		<div class="control-group {% if form.email.errors %}error{% endif %}">
+			<label for="{{ form.email.auto_id }}" class="control-label">{{ contact.email_label }}</label>			
+			<div class="controls">
+				{{ form.email }}
+			{% if form.email.errors %}
+				{% for error in form.email.errors %}
+					<span class="help-inline">{{ error }}</span>
+				{% endfor %}
+			{% endif %}
+			</div>
+		</div>
+		<div class="control-group {% if form.subject.errors %}error{% endif %}">
+			<label for="{{ form.subject.auto_id }}" class="control-label">{{ contact.subject_label }}</label>
+			<div class="controls">
+				{{ form.subject }}
+    			{% if form.subject.errors %}
+    				{% for error in form.subject.errors %}
+    					<span class="help-inline">{{ error }}</span>
+    				{% endfor %}
+    			{% endif %}
+			</div>
+		</div>
+		<div class="control-group {% if form.content.errors %}error{% endif %}">
+			<label for="{{ form.content.auto_id }}" class="control-label">{{ contact.content_label }}</label>
+			<div class="controls">			
+				{{ form.content }}
+			{% if form.content.errors %}
+				{% for error in form.content.errors %}
+					<span class="help-inline">{{ error }}</span>
+				{% endfor %}
+			{% endif %}
+			</div>
+        </div>
+		{% if form.recaptcha_challenge_field %}
+			<div class="control-group {% if form.recaptcha_response_field.errors %}error{% endif %}">
+				{{ form.recaptcha_challenge_field }}
+				{% if form.recaptcha_theme == "custom" %}
+				<div id="recaptcha_widget" style="display:none">
+					
+					<div id="recaptcha_image"></div>
+					<span class="recaptcha_only_if_incorrect_sol error_msg">{% trans "Incorrect please try again" %}</span>
+					
+					<label>
+						<span class="recaptcha_only_if_image">{% trans "Enter the words above:" %}</span>
+						<span class="recaptcha_only_if_audio">{% trans "Enter the numbers you hear:" %}</span>
+					</label>
+					
+					<input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
+					
+					<div><a href="javascript:Recaptcha.reload()">{% trans "Get another CAPTCHA" %}</a></div>
+					<div class="recaptcha_only_if_image"><a href="javascript:Recaptcha.switch_type('audio')">{% trans "Get an audio CAPTCHA" %}</a></div>
+					<div class="recaptcha_only_if_audio"><a href="javascript:Recaptcha.switch_type('image')">{% trans "Get an image CAPTCHA" %}</a></div>
+					
+					<div><a href="javascript:Recaptcha.showhelp()">{% trans "Help" %}</a></div>
+					
+				</div>
+				{% endif %}
+			
+				{% if form.recaptcha_response_field.label %}
+				    <label class="control-label">
+				        {{ form.recaptcha_response_field.label }}
+				    </label>
+				{% endif %}
+			    <div class="controls">
+				{{ form.recaptcha_response_field }}
+			{% if form.recaptcha_response_field.errors %}
+				{% for error in form.recaptcha_response_field.errors %}
+					<span class="help-inline">{% trans error %}</span>
+				{% endfor %}
+			{% endif %}
+
+ 			    </div>
+			</div>
+		{% endif %}
+		
+		{% if form.accept_terms %}
+			{{ form.accept_terms }}
+		{% endif %}
+		<p class="form-actions">
+			<input type="submit"{% if contact.submit %} value="{{ contact.submit }}"{% endif %} class="btn btn-primary" />
+		</p>
+		
+		{% csrf_token %}
+	</form>
+
+{% else %}
+	{{ contact.thanks|safe }}
+{% endif %}

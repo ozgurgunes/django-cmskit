@@ -1,0 +1,4 @@
+{% for ance in ancestors %}
+    <li><a href="{{ ance.get_absolute_url }}">{{ ance.get_menu_title }}</a> <span class="divider">/</span></li>
+{% endfor %}
+<li class="active">{{ article.title }}</li>

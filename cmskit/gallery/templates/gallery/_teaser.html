@@ -1,0 +1,2 @@
+<h4><a href="{{ gallery.page.get_absolute_url }}">{{ gallery.title }}</a></h4>
+<a href="{{ gallery.page.get_absolute_url }}{{ article.slug }}/{{ article.pk }}" class="thumbnail"><img src="{% thumbnail image.src 300x150 crop %}" width="300" height="150" alt="{{ image.alt }}"></a>

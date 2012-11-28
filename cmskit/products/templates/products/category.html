@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load placeholder placeholder_tags %}
+
+{% block title %}{{ block.super }}: {% if category.parent %}{{ category.parent.title }}: {% endif %}{{ category.title }}{% endblock %}
+{% block content %}
+{% get_placeholder category.top inherit as top %}
+{% get_placeholder category.bottom as bottom %}
+
+{% if top %}
+    <section id="top">
+        {{ top }}
+    </section>
+{% endif %}
+
+    <div class="well">
+        <h1>{{ category.title }}</h1>
+        {{ category.body|linebreaks }}
+    </div>
+    {% if category.children.all %}
+    {% for category in category.children.select_related.all %}
+        <div id="cat-{{ category.slug }}">
+            <h2><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></h2>
+            {{ category.body|linebreaks }}
+            <ul>
+                {% for product in category.product_set.select_related.all %}
+                <li>
+                    <h3><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h3>
+                    {{ product.body|linebreaks }}
+                </li>                    
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    {% else %}
+    <ul>
+    {% for product in category.product_set.select_related.all %}
+        <h2><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h2>
+        <p>{{ product.body }}</p>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+{% if bottom %}
+    <section id="bottom">
+        {{ bottom }}
+    </section>
+{% endif %}
+
+{% endblock %}

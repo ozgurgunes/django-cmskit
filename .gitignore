@@ -1,0 +1,62 @@
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# OS generated files #
+######################
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# OS X #
+######################
+.DS_Store
+# Thumbnails
+._*
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Package #
+######################
+.git
+local_settings.py
+docs/_*
+dist
+*.db
+.svn
+*.pyc
+*~
+*.log
+*.pot
+*.pyc
+build
+*.egg-info
+
+# LESS Files #
+######################
+*.less

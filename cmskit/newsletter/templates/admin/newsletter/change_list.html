@@ -1,0 +1,11 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+{% block object-tools %}
+{{ block.super }}
+
+<ul class="object-tools">
+    <li><a href="add/" class="addlink">{% trans "Add subscription" %}</a></li>
+    <li><a href="{% url export_csv %}" class="viewsitelink">{% trans "Export CSV" %}</a></li>
+</ul>
+
+{% endblock %}

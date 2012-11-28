@@ -1,0 +1,7 @@
+{% load i18n %}
+<form class="form form-inline" action="{% url dealers_search %}" method="get" accept-charset="utf-8">
+    {{ form.keywords }}
+    {{ form.city }}
+    <input type="submit" value="{% trans "Ara" %}" class="btn btn-primary" />
+</form>
+</div>

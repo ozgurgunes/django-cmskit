@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n get_placeholder_tag linebreaksli thumbnail %}
+{% block content %}
+{% get_placeholder recipe.top as top %}
+{% get_placeholder recipe.aside as aside %}
+{% get_placeholder recipe.bottom as bottom %}
+{% if top %}
+    <section id="top">
+        {{ top }}
+    </section>
+{% endif %}
+
+<div class="row">
+    <article id="main" class="span8">
+        <h1 class="page-header">{{ recipe.title }}</h1>
+        <img src="{% thumbnail recipe.picture 620x240 crop %}" alt="{{ recipe.title }}">
+        {{ recipe.body|linebreaks }}
+        {% if recipe.preperation_time or recipe.cooking_time %}
+        <table class="table table-bordered">
+            <tr>
+                {% if recipe.preperation_time %}
+                <td align="center"><b>{% trans "Preperation time" %}</b>: {{recipe.preperation_time }} {% trans "minutes" %}</td>
+                {% endif %}
+                {% if recipe.cooking_time %}
+                <td align="center"><b>{% trans "Cooking time" %}</b>: {{recipe.cooking_time }} {% trans "minutes" %}</td>
+                {% endif %}
+                <td align="center"><b>{% trans "Total time" %}</b>: {{recipe.total_time }} {% trans "minutes" %}</td>
+            </tr>
+        </table>
+        {% endif %}
+        <section>
+            <h3>{% trans "Ingredients" %}</h3>
+            <ul>
+                {{ recipe.ingredients|linebreaksli }}
+            </ul>
+        </section>
+        <section>
+            <h3>{% trans "Directions" %}</h3>
+            {{ recipe.directions|linebreaks }}
+        </section>
+    </article>
+    <aside id="side" class="span4">
+        {{ aside }}
+    </aside>
+</div>    
+{% if bottom %}
+    <section id="bottom">
+        {{ bottom }}
+    </section>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}{{ block.super }}: {% if product.category.parent %}{{ product.category.parent.title }}: {% endif %}{{ product.category.title }}: {{ product.title }}{% endblock %}
+
+{% load cms_tags i18n get_placeholder_tag thumbnail %}
+
+{% block content %}
+{% get_placeholder category.top as top %}
+{% get_placeholder category.bottom as bottom %}
+{% if top %}
+    <section id="top">
+        {{ top }}
+    </section>
+{% endif %}
+
+<div class="row">
+    <div class="span4">
+        <img src="{% thumbnail product.picture 300x200 crop %}" width="300" height="200" alt="{{ product.title }}">
+    </div>
+    <div class="span4">
+        <h1>{{ product.title }}</h1>
+        {{ product.body|linebreaks }}    
+    </div>
+    <div class="span4">
+        <div class="tabbable tabs-below">
+        <div class="tab-content">
+        {% for info in product.info_set.all %}
+          <table class="{% if forloop.first %}active {% endif %}table tab-pane" id="info_{{ info.id }}">
+              <caption>{{ info.title }}</caption>
+             <tr>
+                 <th>{% trans "Weight" %}</th>
+                 <td>{{ info.weight }}</td>
+             </tr>
+             <tr>
+                 <th>{% trans "Package Quantity" %}</th>
+                 <td>{{ info.package_quantity }}</td>
+             </tr>
+             <tr>
+                 <th>{% trans "Barcode" %}</th>
+                 <td>{{ info.barcode }}</td>
+             </tr>
+             <tr>
+                 <th>{% trans "Shelf Life" %}</th>
+                 <td>{{ info.shelf_life }}</td>
+             </tr>
+             <tr>
+                 <th>{% trans "Parcel Quantity" %}</th>
+                 <td>{{ info.parcel_quantity }}</td>
+             </tr>
+             <tr>
+                 <th>{% trans "Parcel Weight" %}</th>
+                 <td>{{ info.parcel_weight }}</td>
+             </tr>
+             <tr>
+                 <th>{% trans "Parcel Size" %}</th>
+                 <td>{{ info.parcel_size }}</td>
+             </tr>
+          </table>     
+        {% endfor %}
+        </div>
+        <ul class="nav nav-tabs" id="extra">
+        {% for info in product.info_set.all %}
+          <li {% if forloop.first %}
+            class="active"
+          {% endif %}><a href="#info_{{ info.id }}">{{ info.title }}</a></li>
+        {% endfor %}
+        </ul>
+        </div>
+    </div>
+    <div class="offset4 span8">
+        <table class="table">
+            <thead>
+              <tr>
+                  <th>{% trans "Protein" %}</th>
+                  <th>{% trans "Total Fat" %}</th>
+                  <th>{% trans "Saturated Fat" %}</th>
+                  <th>{% trans "Energy" %}</th>            
+              </tr>
+            </thead>
+              <tr>
+                  <td>{{ product.protein }}</td>
+                  <td>{{ product.total_fat }}</td>
+                  <td>{{ product.saturated_fat }}</td>
+                  <td>{{ product.energy }}</td>
+              </tr>
+        </table>
+
+    </div>
+
+</div>
+  
+<div class="row">
+    <div class="span4">
+        {% if product.recipe_set.all %}
+        {% with product.recipe_set.all|random as recipe %}
+        <h3>{% trans "Bu ürünle pişirin" %}</h3>
+        <p><a href="{{ recipe.get_absolute_url }}">{{ recipe.title }}</a></p>
+        {% endwith %}
+        {% endif %}
+    </div>
+    <div class="span8">
+        <ul class="nav nav-tabs" id="extra">
+          <li class="active"><a href="#cooking">{% trans "Cooking Suggestions" %}</a></li>
+          <li><a href="#storage">{% trans "Storage Conditions" %}</a></li>
+          <li><a href="#tricks">{% trans "Tricks" %}</a></li>
+          <li><a href="#notes">{% trans "Notes" %}</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="cooking">{{ product.cooking }}</div>
+          <div class="tab-pane" id="storage">{{ product.storage }}</div>
+          <div class="tab-pane" id="tricks">{{ product.tricks }}</div>
+          <div class="tab-pane" id="notes">{{ product.notes }}</div>
+        </div>
+    </div>
+</div>  
+ 
+<script>
+$('#extra a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+})
+</script>
+
+{% if bottom %}
+    <section id="bottom">
+        {{ bottom }}
+    </section>
+{% endif %}
+  
+{% endblock %}

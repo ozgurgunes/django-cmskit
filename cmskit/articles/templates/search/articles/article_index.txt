@@ -1,0 +1,10 @@
+{% load get_placeholder_tag %}
+{{ object.title }}
+{{ object.body|striptags }}
+{{ object.url }}
+{% get_placeholder object.meta as meta %}
+{{ meta|striptags }}
+{% get_placeholder object.media as media %}
+{{ media|striptags }}
+{% get_placeholder object.aside as aside %}
+{{ aside|striptags }}

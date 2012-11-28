@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load get_placeholder_tag %}
+{% block content %}
+{% get_placeholder "top" as top %}
+{% get_placeholder "main" as main %}
+{% get_placeholder "side" as side %}
+{% get_placeholder "bottom" as bottom %}
+{% if top %}
+    <section id="top">
+        {{ top }}
+    </section>
+{% endif %}
+
+<div class="row">    
+    <section id="main" class="span8">
+        {% include "recipes/_index.html" %}
+        {{ main }}
+    </section>
+    <section id="side" class="span4">
+        {{ side }}
+    </section>
+</div>
+
+{% if bottom %}
+    <section id="bottom">
+        {{ bottom }}
+    </section>
+{% endif %}
+
+{% endblock %}

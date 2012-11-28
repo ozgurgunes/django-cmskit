@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load get_placeholder_tag %}
+{% block content %}
+{% get_placeholder "top" as top %}
+{% get_placeholder "bottom" as bottom %}
+{% if top %}
+    <section id="top">
+        {{ top }}
+    </section>
+{% endif %}
+
+{% for group in categories %}
+    <div id="cat-{{ group.slug }}">
+        <h2><a href="{{ group.get_absolute_url }}">{{ group.title }}</a></h2>
+        {% if group.body %}
+           {{ group.body|linebreaks }} 
+        {% endif %}
+        {% if group.product_set.select_related.all %}
+        <ul>
+            {% for product in group.product_set.select_related.all %}
+                <li>
+                    <h4><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h4>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if group.children.select_related.all %}
+        <ul>
+            {% for category in group.children.select_related.all  %}
+            <li>
+                <h3><a href="{{ category.get_absolute_url }}">{{ category.title }}</a></h3>
+                {% if category.body %}
+                {{ category.body|linebreaks }}    
+                {% endif %}
+                <ul>
+                    {% for product in category.product_set.select_related.all %}
+                        <li>
+                            <h4><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h4>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+{% endfor %}
+
+{% if bottom %}
+    <section id="bottom">
+        {{ bottom }}
+    </section>
+{% endif %}
+{% endblock %}

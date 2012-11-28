@@ -1,0 +1,26 @@
+{% load cms_tags i18n menu_tags %}
+<!--// Header -->
+    <header id="header" class="container">
+        <h1 id="brand" class="logo"><a class="brand" href="/">django-cmskit</a></h1>
+		<p class="pull-right">
+		  {% language_chooser %}
+		</p>
+    </header>
+<!-- Navigation //-->
+{% block navbar_base %}
+    <nav class="navbar navbar-inverse container" role="navigation">
+        <div class="navbar-inner">
+            <div class="container">
+            {% block navbar %}
+                <ul class="nav nav-pills">
+                    {% show_menu 0 0 %}
+                </ul>
+                <form class="navbar-search pull-right" action="{% page_url "search" %}">
+                  <input type="text" name="q" class="search-query span2" placeholder="{% trans "Search" %}" value="{{ request.GET.q }}">
+                </form>        			
+                
+            {% endblock %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% load i18n pagination_tags thumbnail %}
+{% autopaginate object_list 10 %}
+{% if object_list %}
+<h1 class="page-header">{% trans "Recipes" %}</h1>
+{% for recipe in object_list %}
+    <h3><a href="{{ recipe.get_absolute_url }}">{{ recipe.title }}</a></h3>
+    <a href="{{ recipe.get_absolute_url }}"><img src="{% thumbnail recipe.picture 300x150 crop %}" alt="{{ recipe.title }}"></a>
+{% endfor %}
+{% paginate %}
+{% else %}
+<p class="alert">{% trans "There aren't any recipes" %}</p>
+{% endif %}

@@ -1,0 +1,5 @@
+{{ object.title }}
+{{ object.body|striptags }}
+{{ object.url }}
+{{ object.ingredients }}
+{{ object.directions }}

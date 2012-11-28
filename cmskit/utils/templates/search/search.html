@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load highlight cms_search_tags i18n %}
+{% block content %}
+    <h2>Search</h2>
+
+    <form method="get" action="." class="form-inline">
+		<input type="text" name="q" value="{{ request.GET.q }}" id="q">
+        <input type="submit" class="btn" value="{% trans "Search" %}">
+	</form>
+        {% if query %}
+            <h3>Results</h3>
+
+            {% for result in page.object_list %}
+                <h3><a href="{% get_translated_value result "url" %}">{{ result.title }}</a></h3>
+                {{ result.url }}
+                <p>{% highlight result.text with request.GET.q css_class "label label-warning" max_length 200 %}</p>
+                <p><a href="{% get_translated_value result "url" %}">http://{{ SITE_DOMAIN }}{% get_translated_value result "url" %}</a></p>
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+{% endblock %}
