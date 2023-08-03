@@ -45,7 +45,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'django>=1.4',
-        'django-cms==2.3.1',
+        'django-cms==3.0.14',
     ],
     classifiers=[
         "Development Status :: 1 - Planning",
